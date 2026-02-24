@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>大庄國小 - 家長週檢核表</title>
+    <!-- 引入 Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5c7c5a; /* 柔和綠色 */
+            --primary-light: #e6ece6;
+            --secondary: #e69a59; /* 溫馨橘色 */
+            --text-main: #4a4a4a;
+            --text-light: #7a7a7a;
+            --bg-color: #fdfbf7; /* 紙張底色 */
+            --border-color: #c4b9a9;
+            --error: #d9534f;
+            --border-radius-hand: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手繪風邊框 */
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 25px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-hand);
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .header-actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .icon-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            border-bottom: 3px dashed var(--primary-light);
+            padding-bottom: 15px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: transparent;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: transparent;
+            font-family: monospace;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(230, 154, 89, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* 選擇題樣式 (手繪風) */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            transition: all 0.2s;
+        }
+
+        .radio-option:hover {
+            background-color: var(--primary-light);
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option span.custom-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .radio-option input[type="radio"]:checked + span.custom-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+        }
+
+        .radio-option input[type="radio"]:checked ~ span.label-text {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .radio-option.selected {
+            border-color: var(--secondary);
+            background-color: rgba(230, 154, 89, 0.05);
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+        .row .col {
+            flex: 1;
+        }
+
+        /* 按鈕樣式 */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 3px 4px 0px var(--text-main);
+            margin-top: 30px;
+        }
+
+        .btn:hover {
+            background-color: #4a6649;
+            transform: translate(1px, 1px);
+            box-shadow: 2px 3px 0px var(--text-main);
+        }
+
+        .btn:active {
+            transform: translate(3px, 4px);
+            box-shadow: 0px 0px 0px var(--text-main);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+            box-shadow: 2px 2px 0px var(--border-color);
+        }
+        .btn-secondary:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-danger {
+            background-color: white;
+            color: var(--error);
+            border: 2px solid var(--error);
+            box-shadow: 2px 2px 0px var(--error);
+        }
+
+        /* 模態視窗 (Modal) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-color);
+            padding: 30px;
+            border-radius: var(--border-radius-hand);
+            border: 2px solid var(--border-color);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* 程式碼區塊 */
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            border: 1px solid #ddd;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .qr-container img {
+            max-width: 200px;
+            border: 2px solid var(--border-color);
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .short-url {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: var(--primary-light);
+            border-radius: 4px;
+            word-break: break-all;
+            font-weight: bold;
+        }
+
+        /* 載入動畫 */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--secondary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 480px) {
+            .row { flex-direction: column; gap: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 頂部按鈕 -->
+        <div class="header-actions">
+            <button class="icon-btn" onclick="handleSecureClick('infoModal')" title="系統說明與部署">ℹ️</button>
+            <button class="icon-btn" onclick="handleSecureClick('settingsModal')" title="系統設定">⚙️</button>
+        </div>
+
+        <h1>📝 大庄國小健康促進</h1>
+        <div class="subtitle">五年丙班 - 家長週檢核表</div>
+
+        <form id="healthForm">
+            <!-- 區塊 1：基本資料 -->
+            <div class="form-group row">
+                <div class="col">
+                    <label>📅 檢核週次</label>
+                    <select id="week" required>
+                        <option value="" disabled selected>請選擇週次</option>
+                        <option value="第1週 (03/09~03/14)">第1週 (03/09~03/14)</option>
+                        <option value="第2週 (03/16~03/21)">第2週 (03/16~03/21)</option>
+                        <option value="第3週 (03/23~03/28)">第3週 (03/23~03/28)</option>
+                        <option value="第4週 (03/30~04/04)">第4週 (03/30~04/04)</option>
+                        <option value="第5週 (04/06~04/11)">第5週 (04/06~04/11)</option>
+                        <option value="第6週 (04/13~04/18)">第6週 (04/13~04/18)</option>
+                        <option value="第7週 (04/20~04/25)">第7週 (04/20~04/25)</option>
+                        <option value="第8週 (04/27~05/01)">第8週 (04/27~05/01)</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>🔢 座號</label>
+                    <select id="seatNo" required>
+                        <option value="" disabled selected>請選擇座號</option>
+                        <option value="1">1號</option>
+                        <option value="2">2號</option>
+                        <option value="3">3號</option>
+                        <option value="4">4號</option>
+                        <option value="5">5號</option>
+                        <option value="6">6號</option>
+                        <option value="7">7號</option>
+                        <option value="8">8號</option>
+                        <option value="9">9號</option>
+                        <option value="10">10號</option>
+                        <option value="11">11號</option>
+                        <option value="12">12號</option>
+                        <option value="13">13號</option>
+                        <option value="14">14號</option>
+                        <option value="15">15號</option>
+                        <option value="16">16號</option>
+                        <option value="17">17號</option>
+                        <option value="18">18號</option>
+                        <option value="19">19號</option>
+                        <option value="20">20號</option>
+                        <option value="21">21號</option>
+                        <option value="22">22號</option>
+                        <option value="23">23號</option>
+                        <option value="24">24號</option>
+                        <option value="25">25號</option>
+                        <option value="26">26號</option>
+                        <option value="27">27號</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>👤 學生姓名</label>
+                <input type="text" id="name" placeholder="請輸入孩子姓名" required>
+            </div>
+
+            <hr style="border:1px dashed var(--border-color); margin: 30px 0;">
+
+            <!-- 區塊 2：運動時數 -->
+            <div class="form-group">
+                <label>🏃‍♂️ 每週運動時數</label>
+                <span class="description">請評估孩子本週累積的「中高強度運動」時數（會流汗、稍微喘的程度）。</span>
+                <div class="radio-group" id="exercise-group">
+                    <label class="radio-option">
+                        <input type="radio" name="exercise" value="未達 150 分鐘" required>
+                        <span class="custom-radio"></span><span class="label-text">未達 150 分鐘 (需再加油)</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="exercise" value="150 - 200 分鐘">
+                        <span class="custom-radio"></span><span class="label-text">150 ~ 200 分鐘 (達標)</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="exercise" value="200 分鐘以上">
+                        <span class="custom-radio"></span><span class="label-text">200 分鐘以上 (表現優異)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 區塊 3：飲食習慣 -->
+            <div class="form-group">
+                <label>💧 每日飲水習慣</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="water" value="幾乎不喝白開水" required>
+                        <span class="custom-radio"></span><span class="label-text">幾乎不喝白開水</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="water" value="有喝，但未達 1500cc">
+                        <span class="custom-radio"></span><span class="label-text">有喝，但未達 1500cc</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="water" value="每天喝足 1500cc 以上">
+                        <span class="custom-radio"></span><span class="label-text">每天喝足 1500cc 以上👍</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>🧋 含糖飲料攝取</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="sugar" value="每天至少一杯" required>
+                        <span class="custom-radio"></span><span class="label-text">每天至少一杯 (需注意)</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sugar" value="每週 2-3 次">
+                        <span class="custom-radio"></span><span class="label-text">每週 2~3 次</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sugar" value="幾乎不喝">
+                        <span class="custom-radio"></span><span class="label-text">幾乎不喝或完全不喝👍</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>🥗 蔬果攝取與均衡</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="veggies" value="挑食，很少吃蔬果" required>
+                        <span class="custom-radio"></span><span class="label-text">挑食，很少吃蔬果</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="veggies" value="偶爾吃，份量不足">
+                        <span class="custom-radio"></span><span class="label-text">偶爾吃，份量不足</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="veggies" value="天天五蔬果">
+                        <span class="custom-radio"></span><span class="label-text">天天五蔬果 (達標)👍</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>🍚 食物份量控制</label>
+                <span class="description">是否有暴飲暴食，或是經常吃零食取代正餐？</span>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="portion" value="常吃零食/份量過多" required>
+                        <span class="custom-radio"></span><span class="label-text">常吃零食/份量過多</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="portion" value="普通，偶爾控制不佳">
+                        <span class="custom-radio"></span><span class="label-text">普通，偶爾控制不佳</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="portion" value="三餐定時定量">
+                        <span class="custom-radio"></span><span class="label-text">三餐定時定量👍</span>
+                    </label>
+                </div>
+            </div>
+
+            <hr style="border:1px dashed var(--border-color); margin: 30px 0;">
+
+            <!-- 區塊 4：親師協力 -->
+            <div class="form-group">
+                <label>🤝 親師協力指數 (陪伴與鼓勵)</label>
+                <span class="description">請評估您本週陪伴孩子運動或把關飲食的投入程度：</span>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="synergy" value="1分：太忙碌，較少關注" required>
+                        <span class="custom-radio"></span><span class="label-text">1分：太忙碌，較少關注</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="synergy" value="3分：偶爾提醒">
+                        <span class="custom-radio"></span><span class="label-text">3分：偶爾口頭提醒</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="synergy" value="5分：積極陪伴與實踐">
+                        <span class="custom-radio"></span><span class="label-text">5分：積極陪伴與共同實踐⭐⭐⭐</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 區塊 5：自由回饋 -->
+            <div class="form-group">
+                <label>✍️ 家長觀察回饋 (選填)</label>
+                <span class="description">歡迎分享孩子的進步、遇到的困難或給老師的話。</span>
+                <textarea id="feedback" placeholder="例如：孩子這週願意嘗試吃青椒了！但是喝水量還是稍微不夠..."></textarea>
+            </div>
+
+            <button type="submit" class="btn">🚀 送出本週檢核</button>
+        </form>
+    </div>
+
+    <!-- ================= 模態視窗區 (Modals) ================= -->
+
+    <!-- 0. 登入視窗 -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>🔒 系統登入</h2>
+                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>帳號</label>
+                <input type="text" id="loginUsername" placeholder="請輸入帳號" required>
+            </div>
+            <div class="form-group">
+                <label>密碼</label>
+                <input type="password" id="loginPassword" placeholder="請輸入密碼" required>
+            </div>
+            <button class="btn" onclick="executeLogin()">登入</button>
+        </div>
+    </div>
+
+    <!-- 1. 通用訊息提示視窗 (取代 alert) -->
+    <div id="alertModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <div class="modal-header" style="justify-content: center;">
+                <h2 id="alertTitle">提示</h2>
+            </div>
+            <p id="alertMessage" style="margin-bottom: 25px; line-height: 1.6;"></p>
+            <div id="alertLoader" class="loader hidden"></div>
+            <button class="btn" id="alertBtn" onclick="closeModal('alertModal')">確定</button>
+        </div>
+    </div>
+
+    <!-- 2. 設定視窗 -->
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ 系統設定</h2>
+                <button class="close-btn" onclick="closeModal('settingsModal')">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label>🔗 GAS Web App 網址</label>
+                <span class="description">請貼上您部署好的 Google Apps Script 網址。</span>
+                <input type="password" id="gasUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
+            </div>
+            
+            <div class="row" style="margin-top: 20px;">
+                <div class="col">
+                    <button class="btn" style="margin-top:0;" onclick="saveSettings()">儲存設定</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-danger" style="margin-top:0;" onclick="clearSettings()">清除設定</button>
+                </div>
+            </div>
+
+            <hr style="border:1px dashed var(--border-color); margin: 25px 0;">
+            
+            <div class="form-group">
+                <label>📲 產生分享連結與 QR Code</label>
+                <span class="description">將目前的設定轉換為專屬短網址，方便傳給其他家長。</span>
+                <button class="btn btn-secondary" style="margin-top:10px; padding: 10px;" onclick="generateShareLink()">產生 QR Code</button>
+                
+                <div id="qrContainer" class="qr-container">
+                    <div id="qrLoader" class="loader hidden" style="width:30px; height:30px; border-width:3px;"></div>
+                    <img id="qrImage" src="" alt="QR Code" class="hidden">
+                    <br>
+                    <a id="shortUrlLink" href="#" target="_blank" class="short-url hidden"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 說明視窗 -->
+    <div id="infoModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>ℹ️ 系統部署說明</h2>
+                <button class="close-btn" onclick="closeModal('infoModal')">&times;</button>
+            </div>
+            <div style="line-height: 1.6;">
+                <p>本系統分為前端與後端，您需要將後端程式碼部署到 Google 試算表：</p>
+                <ol>
+                    <li>新增一個 Google 試算表。</li>
+                    <li>點擊 <strong>擴充功能 > Apps Script</strong>。</li>
+                    <li>將下方代碼複製並覆蓋原本的內容。</li>
+                    <li>點選右上角 <strong>部署 > 新增部署作業</strong>。</li>
+                    <li>類型選擇 <strong>網頁應用程式</strong>。</li>
+                    <li>權限設定：執行身分選「自己」，誰可以存取選「所有人」。</li>
+                    <li>複製取得的網址，貼到本網頁的「⚙️ 設定」中。</li>
+                </ol>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <h3 style="margin: 0; color: var(--primary);">📄 後端程式碼 (Code.gs)</h3>
+                    <button class="btn btn-secondary" style="margin-top: 0; width: auto; padding: 5px 15px; font-size: 0.9rem;" onclick="copyGasCode()">📋 複製代碼</button>
+                </div>
+                <pre><code id="gasCodeDisplay"></code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- 儲存原始 GAS 代碼的隱藏區塊 (已更新登入邏輯版本) -->
+    <script type="text/template" id="gasCodeTemplate">
+const SHEET_NAME = "家長週檢核表";
+const AUTH_SHEET_NAME = "核定";
+const HEADERS = ["時間戳記", "週次", "座號", "姓名", "運動時數", "飲水習慣", "含糖飲料", "蔬果攝取", "份量控制", "親師協力指數", "家長回饋"];
+
+function initSheets() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+    sheet.appendRow(HEADERS);
+    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight("bold").setBackground("#e6ece6").setHorizontalAlignment("center");
+    sheet.setFrozenRows(1);
+  }
+  let authSheet = ss.getSheetByName(AUTH_SHEET_NAME);
+  if (!authSheet) {
+    authSheet = ss.insertSheet(AUTH_SHEET_NAME);
+    authSheet.appendRow(["帳號", "密碼"]);
+    authSheet.appendRow(["admin", "1234"]); 
+    authSheet.getRange(1, 1, 1, 2).setFontWeight("bold").setBackground("#fce5cd").setHorizontalAlignment("center");
+    authSheet.setFrozenRows(1);
+  }
+  return { sheet, authSheet };
+}
+
+function doPost(e) {
+  try {
+    const { sheet, authSheet } = initSheets();
+    const data = JSON.parse(e.postData.contents);
+    const action = data.action || "submit_form";
+    
+    if (action === "verify_login") {
+      const rows = authSheet.getDataRange().getValues();
+      for (let i = 1; i < rows.length; i++) {
+        if (String(rows[i][0]) === String(data.username) && String(rows[i][1]) === String(data.password)) {
+          return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "登入成功！" })).setMimeType(ContentService.MimeType.JSON);
+        }
+      }
+      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "帳號或密碼錯誤，請重新輸入。" })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    if (action === "submit_form") {
+      const rowData = [
+        new Date(), data.week, data.seatNo, data.name, data.exercise, 
+        data.water, data.sugar, data.veggies, data.portion, data.synergy, data.feedback
+      ];
+      sheet.appendRow(rowData);
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", message: "記錄成功！" })).setMimeType(ContentService.MimeType.JSON);
+    }
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString() })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+    </script>
+
+    <script>
+        /** * ==========================================
+         * 1. 核心設定與初始化
+         * ==========================================
+         */
+        
+        // 原始碼預設 URL
+        const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbzNbvjXqOPaoM7k4OkeIqkl6kCnZ8EhRMeu-0trBcraOvIUsCs8oW4GjLRxfGSSLHX2nA/exec"; 
+        let currentGasUrl = "";
+
+        // 初始化應用程式
+        window.onload = function() {
+            setupRadioStyles();
+            initGasUrl();
+            document.getElementById('gasCodeDisplay').textContent = document.getElementById('gasCodeTemplate').innerHTML.trim();
+        };
+
+        // URL 優先順序: 網址參數 ?config= > LocalStorage > DEFAULT_GAS_URL
+        function initGasUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const configBase64 = urlParams.get('config');
+
+            if (configBase64) {
+                try {
+                    const decodedUrl = atob(configBase64); // Base64 解碼
+                    currentGasUrl = decodedUrl;
+                    localStorage.setItem('dazhuang_gas_url', currentGasUrl);
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                } catch (e) {
+                    console.error("Config 解析失敗", e);
+                }
+            }
+
+            if (!currentGasUrl) {
+                currentGasUrl = localStorage.getItem('dazhuang_gas_url');
+            }
+
+            if (!currentGasUrl) {
+                currentGasUrl = DEFAULT_GAS_URL;
+            }
+
+            document.getElementById('gasUrlInput').value = currentGasUrl || "";
+        }
+
+
+        /** * ==========================================
+         * 2. UI 互動與自訂 Modal 系統
+         * ==========================================
+         */
+
+        function setupRadioStyles() {
+            const options = document.querySelectorAll('.radio-option');
+            options.forEach(option => {
+                const input = option.querySelector('input[type="radio"]');
+                input.addEventListener('change', function() {
+                    const name = this.name;
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                        radio.closest('.radio-option').classList.remove('selected');
+                    });
+                    if (this.checked) {
+                        option.classList.add('selected');
+                    }
+                });
+            });
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function showModal(title, message, isLoading = false) {
+            document.getElementById('alertTitle').innerText = title;
+            document.getElementById('alertMessage').innerText = message;
+            
+            const loader = document.getElementById('alertLoader');
+            const btn = document.getElementById('alertBtn');
+
+            if (isLoading) {
+                loader.classList.remove('hidden');
+                btn.classList.add('hidden');
+            } else {
+                loader.classList.add('hidden');
+                btn.classList.remove('hidden');
+            }
+
+            openModal('alertModal');
+        }
+
+
+        /** * ==========================================
+         * 3. 登入機制與設定
+         * ==========================================
+         */
+
+        let targetModalAfterLogin = '';
+
+        function handleSecureClick(targetModalId) {
+            targetModalAfterLogin = targetModalId;
+            if (!currentGasUrl) {
+                // 若完全沒有 GAS 網址(初次架設)，才允許直接進入目標頁面
+                openModal(targetModalId);
+            } else {
+                // 若已經有 GAS 網址，則強制先登入
+                document.getElementById('loginUsername').value = '';
+                document.getElementById('loginPassword').value = '';
+                openModal('loginModal');
+            }
+        }
+
+        async function executeLogin() {
+            const user = document.getElementById('loginUsername').value.trim();
+            const pass = document.getElementById('loginPassword').value.trim();
+
+            if (!user || !pass) {
+                showModal('錯誤', '請輸入帳號與密碼');
+                return;
+            }
+
+            showModal('驗證中', '正在與資料庫連線驗證身分...', true);
+
+            try {
+                const response = await fetch(currentGasUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ 
+                        action: 'verify_login', 
+                        username: user, 
+                        password: pass 
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    // 驗證成功，關閉提示與登入視窗，開啟目標視窗
+                    closeModal('alertModal');
+                    closeModal('loginModal');
+                    openModal(targetModalAfterLogin);
+                } else {
+                    // 驗證失敗
+                    showModal('登入失敗', result.message);
+                }
+            } catch (error) {
+                showModal('連線失敗', '無法連接到伺服器進行驗證，請檢查您的網路或 GAS 網址是否正確。');
+                console.error(error);
+            }
+        }
+
+        function saveSettings() {
+            const inputUrl = document.getElementById('gasUrlInput').value.trim();
+            if (inputUrl) {
+                localStorage.setItem('dazhuang_gas_url', inputUrl);
+                currentGasUrl = inputUrl;
+                showModal('設定成功', 'GAS API 網址已儲存！');
+                setTimeout(() => closeModal('settingsModal'), 1000);
+            } else {
+                showModal('錯誤', '網址不能為空！');
+            }
+        }
+
+        function clearSettings() {
+            localStorage.removeItem('dazhuang_gas_url');
+            currentGasUrl = DEFAULT_GAS_URL;
+            document.getElementById('gasUrlInput').value = currentGasUrl;
+            showModal('已重置', '設定已清除，已恢復預設連線。');
+        }
+
+        // 產生短網址與 QR Code
+        async function generateShareLink() {
+            if (!currentGasUrl) {
+                showModal('錯誤', '請先輸入並儲存 GAS 網址！');
+                return;
+            }
+
+            const qrContainer = document.getElementById('qrContainer');
+            const qrLoader = document.getElementById('qrLoader');
+            const qrImage = document.getElementById('qrImage');
+            const shortUrlLink = document.getElementById('shortUrlLink');
+
+            qrContainer.style.display = 'block';
+            qrLoader.classList.remove('hidden');
+            qrImage.classList.add('hidden');
+            shortUrlLink.classList.add('hidden');
+
+            try {
+                const configBase64 = btoa(currentGasUrl);
+                const baseUrl = window.location.origin + window.location.pathname;
+                const longUrl = `${baseUrl}?config=${configBase64}`;
+
+                const shortApiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(longUrl)}`;
+                const response = await fetch(shortApiUrl);
+                const data = await response.json();
+
+                if (data.shorturl) {
+                    const shortUrl = data.shorturl;
+                    const qrUrl = `https://quickchart.io/qr?text=${encodeURIComponent(shortUrl)}&size=200&margin=1`;
+                    
+                    qrImage.src = qrUrl;
+                    qrImage.onload = () => {
+                        qrLoader.classList.add('hidden');
+                        qrImage.classList.remove('hidden');
+                    };
+
+                    shortUrlLink.href = shortUrl;
+                    shortUrlLink.innerText = shortUrl;
+                    shortUrlLink.classList.remove('hidden');
+                } else {
+                    throw new Error("短網址產生失敗");
+                }
+            } catch (error) {
+                qrLoader.classList.add('hidden');
+                showModal('產生失敗', '無法產生分享連結，請稍後再試。');
+            }
+        }
+
+
+        /** * ==========================================
+         * 4. 表單提交與後端通訊
+         * ==========================================
+         */
+
+        document.getElementById('healthForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (!currentGasUrl) {
+                showModal('尚未設定後端連線', '請先點擊右上角「⚙️」按鈕，輸入您的 GAS Web App 網址。');
+                return;
+            }
+
+            // 收集表單資料，並加入 action: 'submit_form' 參數
+            const formData = {
+                action: 'submit_form', // 告訴後端這是新增資料的請求
+                week: document.getElementById('week').value,
+                seatNo: document.getElementById('seatNo').value,
+                name: document.getElementById('name').value,
+                exercise: document.querySelector('input[name="exercise"]:checked')?.value || '',
+                water: document.querySelector('input[name="water"]:checked')?.value || '',
+                sugar: document.querySelector('input[name="sugar"]:checked')?.value || '',
+                veggies: document.querySelector('input[name="veggies"]:checked')?.value || '',
+                portion: document.querySelector('input[name="portion"]:checked')?.value || '',
+                synergy: document.querySelector('input[name="synergy"]:checked')?.value || '',
+                feedback: document.getElementById('feedback').value
+            };
+
+            showModal('資料傳送中', '正在將本週紀錄送到老師的試算表，請稍候...', true);
+
+            try {
+                const response = await fetch(currentGasUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    showModal('🎉 傳送成功', '感謝您的填寫！資料已成功記錄。');
+                    document.getElementById('healthForm').reset();
+                    document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+                } else {
+                    showModal('⚠️ 發生錯誤', '後端回應錯誤: ' + result.message);
+                }
+            } catch (error) {
+                showModal('連線失敗', '無法連接到伺服器，請檢查您的網路或 GAS 網址是否正確。');
+            }
+        });
+
+        function copyGasCode() {
+            const code = document.getElementById('gasCodeTemplate').innerHTML.trim();
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showModal('複製成功', 'GAS 程式碼已複製到剪貼簿。');
+                });
+            } else {
+                let textArea = document.createElement("textarea");
+                textArea.value = code;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showModal('複製成功', 'GAS 程式碼已複製到剪貼簿。');
+                } catch (err) {
+                    showModal('複製失敗', '您的瀏覽器不支援自動複製，請手動選取複製。');
+                }
+                textArea.remove();
+            }
+        }
+    </script>
+</body>
+</html>
